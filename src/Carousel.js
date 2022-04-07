@@ -25,6 +25,17 @@ export default function Carousel({ children }) {
       </div>
       <div className='indicators'>
         <button onClick={() => { updateIndex(activeIndex - 1) }}>Prev</button>
+        {React.Children.map(children, (child, index) => {
+          return (
+            <button
+              className={`${index === activeIndex ? "active" : ""}`}
+              onClick={() => {
+                updateIndex(index);
+              }}>
+              {index + 1}
+            </button>
+          )
+        })}
         <button onClick={() => { updateIndex(activeIndex + 1) }}>Next</button>
       </div>
     </div>
