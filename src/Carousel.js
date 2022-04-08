@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSwipeable } from 'react-swipeable';
 import CarouselItem from './CarouselItem';
 
 import './Carousel.css';
@@ -21,6 +22,11 @@ export default function Carousel({ children }) {
     setActiveIndex(newIndex);
   };
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () => updateIndex(activeIndex + 1),
+    onSwipedRight: () => updateIndex(activeIndex - 1)
+  });
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (!pause) {
@@ -37,6 +43,7 @@ export default function Carousel({ children }) {
 
   return (
     <div
+      {...handlers}
       className='carousel'
       onMouseEnter={() => { setPause(true) }}
       onMouseLeave={() => { setPause(false) }}
